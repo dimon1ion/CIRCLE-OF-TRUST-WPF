@@ -28,23 +28,22 @@ namespace WPF_CSharpXAML_hw4
         public ObservableCollection<User> Users { get; set; }
         public DataSource()
         {
+            selectedIndex = -1;
             name = String.Empty;
             Users = new ObservableCollection<User>();
             addCommand = new Command(() =>
             {
                 Users.Add(new User(name));
                 Name = String.Empty;
+                SelectedIndex++;
             });
             deleteCommand = new Command(() =>
             {
-                if (SelectedIndex >= 0)
-                {
-                    Users.RemoveAt(SelectedIndex);
-                    if (Users.Count > 0)
-                    {
-                        SelectedIndex = 0;
-                    }
-                }
+                SelectedIndex--;
+                Users.RemoveAt(SelectedIndex + 1);
+            }, () =>
+            {
+                return selectedIndex >= 0;
             });
             saveCommand = new Command(() =>
             {
@@ -80,6 +79,7 @@ namespace WPF_CSharpXAML_hw4
                             foreach (User user in users)
                             {
                                 SelectedIndex = 0;
+                                CheckDelete();
                                 Users.Add(user);
                             }
                         }
@@ -108,6 +108,7 @@ namespace WPF_CSharpXAML_hw4
                 if (!selectedIndex.Equals(value))
                 {
                     selectedIndex = value;
+                    CheckDelete();
                     PropChanged(nameof(SelectedIndex));
                 }
             }
@@ -119,6 +120,11 @@ namespace WPF_CSharpXAML_hw4
         public ICommand LoadCommand => loadCommand;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void CheckDelete()
+        {
+            (deleteCommand as Command).Check();
+        }
 
         private void PropChanged(string nameProp)
         {
