@@ -9,8 +9,8 @@
     <Window.InputBindings>
         <KeyBinding Command="{Binding AddCommand}" Key="R" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding DeleteCommand}" Key="D" Modifiers="Ctrl"/>
-        <KeyBinding Command="{Binding SaveCommand}" Key="L" Modifiers="Ctrl"/>
-        <KeyBinding Command="{Binding LoadCommand}" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding SaveCommand}" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding LoadCommand}" Key="L" Modifiers="Ctrl"/>
     </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
